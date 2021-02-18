@@ -24,16 +24,16 @@ declare global {
 export class MathService {
   private signal: Subject<boolean>;
   private mathJax: MathJaxConfig = {
-    source: "https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/mml-chtml.js",
-    integrity: "sha256-CnzfCXjFj1REmPHgWvm/OQv8gFaxwbLKUi41yCU7N2s=",
+    source: "https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/mml-chtml.js",
+    integrity: "sha256-ayts6I/2b1djaW1jw5nNfCVVZJyzTBmfS6ZwniJm6mA=",
     id: "MathJaxScript"
   };
   private mathJaxFallback: MathJaxConfig = {
     source: "assets/mathjax/mml-chtml.js",
-    integrity: "sha256-CnzfCXjFj1REmPHgWvm/OQv8gFaxwbLKUi41yCU7N2s=",
+    integrity: "sha256-ayts6I/2b1djaW1jw5nNfCVVZJyzTBmfS6ZwniJm6mA=",
     id: "MathJaxBackupScript"
   };
-  
+
   constructor() {
     this.signal = new ReplaySubject<boolean>();
     void this.registerMathJaxAsync(this.mathJax)
@@ -54,7 +54,7 @@ export class MathService {
       script.integrity = config.integrity;
       script.crossOrigin = "anonymous";
       script.async = true;
-      script.onload = () => resolve();
+      script.onload = () => resolve(undefined);
       script.onerror = error => reject(error);
       document.head.appendChild(script);
     });
